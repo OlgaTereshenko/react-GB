@@ -59,8 +59,14 @@
   list-style-type: none;
   margin-top: 25px;
   max-width: 400px;
+  text-align: left;
  background-color:khaki;
 }
+
+.botAnswer {
+text-align: right;
+}
+
 
 .ulList{
   width: 500px;

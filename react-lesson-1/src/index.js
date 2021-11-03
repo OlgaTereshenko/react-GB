@@ -1,13 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import { StrictMode } from "react";
+import ReactDOM from "react-dom";
 
-const text = "Начинаем изучение React!";
+import App from "./App";
 
+const rootElement = document.getElementById("root");
 ReactDOM.render(
-  <App context={text}/>,
-  document.getElementById('root')
+  <StrictMode>
+    <App />
+  </StrictMode>,
+  rootElement
 );
-
-
