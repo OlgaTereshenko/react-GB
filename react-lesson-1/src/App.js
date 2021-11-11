@@ -1,7 +1,7 @@
 import { ChatHomework } from "./components/index";
 import { Provider } from "react-redux";
-import {store} from './store/profile/index'
-
+import {store} from "./store/index";
+ 
 const App=()=> {
   return (
   <Provider store={store}> 

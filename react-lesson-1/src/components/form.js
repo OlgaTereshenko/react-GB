@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
       paddingLeft: theme.spacing(1),
       position: "absolute",
       bottom: 0,
-      width: '80%'
+      minWidth: '80%'
     },
     input: {
       flexGrow: 1,
