@@ -1,21 +1,24 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useParams, Redirect } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { Form } from "../../components/form";
 import { MessageList } from "../../components/messageList";
-import { CHATS } from "../../mocks/chats";
+import {getChatMessagesById} from "../../store/messages/selectors";
+import { createMessage } from "../../store/messages/actions";
+import { hasChatById } from "../../store/chats/selectors";
 
 export const Homework = () => {
   const { chatId } = useParams();
-  const [messageList, setMessageList] = useState([]);
+  const dispatch = useDispatch();
+  const messageList = useSelector(getChatMessagesById(chatId));
+  const hasChat = useSelector(hasChatById(chatId));
 
   const sendMessage = (author, text) => {
-    const newMessageList = [...messageList];
     const newMessage = {
       author,
       text
     };
-    newMessageList.push(newMessage);
-    setMessageList(newMessageList);
+    dispatch(createMessage(newMessage, chatId))
   };
 
   const onSendMessage = (value) => {
@@ -23,7 +26,7 @@ export const Homework = () => {
   };
 
   useEffect(() => {
-    if (messageList.length === 0) {
+    if (!messageList || messageList.length === 0) {
       return;
     }
 
@@ -39,7 +42,7 @@ export const Homework = () => {
      };
 }, [messageList]);
 
-if (!CHATS.find(({ id }) => id === chatId)) {
+if (!hasChat) {
     return <Redirect to="/chats" />;
   }
 
