@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form } from "../../components/form";
 import { MessageList } from "../../components/messageList";
 import {getChatMessagesById} from "../../store/messages/selectors";
-import { createMessage } from "../../store/messages/actions";
+import { addMessage } from "../../store/messages/actions";
 import { hasChatById } from "../../store/chats/selectors";
 
 export const Homework = () => {
@@ -18,7 +18,7 @@ export const Homework = () => {
       author,
       text
     };
-    dispatch(createMessage(newMessage, chatId))
+    dispatch(addMessage (newMessage, chatId))
   };
 
   const onSendMessage = (value) => {
