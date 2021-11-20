@@ -5,6 +5,7 @@ import {persistStore, persistReducer} from "redux-persist";
 import {profileReducer} from "../store/profile/reducer";
 import {messagesReducer} from "../store/messages/reducer";
 import {chatsReducer} from "../store/chats/reducer";
+import {animalReducer} from "../store/animals/reducer";
 
 const persistConfig = {
     key: 'root',
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     profile: profileReducer,
     messages: messagesReducer,
     chats: chatsReducer,
+    animals: animalReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
