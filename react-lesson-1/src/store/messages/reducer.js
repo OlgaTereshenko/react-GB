@@ -4,7 +4,7 @@ const initialState = {
     messages: {}
 }
 
-export const messagesReducer = (state=initialState, action) =>{
+export const messagesReducer = (state = initialState, action) =>{
     switch (action.type) {
         case ADD_MESSAGE: {
             const {
@@ -14,10 +14,10 @@ export const messagesReducer = (state=initialState, action) =>{
 
             const newMessages = {...state.messages};
 
-            newMessages[chatId] = [
+            newMessages[chatId] = {
                 ...(newMessages[chatId] || []),
                 message
-            ]
+            }
 
             return {
                 messages: newMessages  

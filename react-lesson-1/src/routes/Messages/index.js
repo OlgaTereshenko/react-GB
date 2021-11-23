@@ -4,43 +4,40 @@ import { useDispatch, useSelector } from "react-redux";
 import { Form } from "../../components/form";
 import { MessageList } from "../../components/messageList";
 import {getChatMessagesById} from "../../store/messages/selectors";
-import { addMessage } from "../../store/messages/actions";
+import { addMessageWithThunk, onTrackingAddMessageWithThunk, offTrackingAddMessageWithThunk, onTrackingRemovedMessageWithThunk, offTrackingRemovedMessageWithThunk } from "../../store/messages/actions";
 import { hasChatById } from "../../store/chats/selectors";
+import { getUser } from "../../store/user/reducer";
+import { createMessage } from "../../helpers";
 
 export const Homework = () => {
   const { chatId } = useParams();
   const dispatch = useDispatch();
+  const userId = createMessage(getUser);
   const messageList = useSelector(getChatMessagesById(chatId));
   const hasChat = useSelector(hasChatById(chatId));
 
-  const sendMessage = (author, text) => {
-    const newMessage = {
-      author,
-      text
-    };
-    dispatch(addMessage (newMessage, chatId))
-  };
+  // const sendMessage = (author, text) => {
+  //   const newMessage = {
+  //     author,
+  //     text
+  //   };
+  //   dispatch(addMessage (newMessage, chatId))
+  // };
 
-  const onSendMessage = (value) => {
-    sendMessage("user", value);
+  const onSendMessage = (text) => {
+    const message = createMessage(userId, text);
+    dispatch(addMessageWithThunk(message, chatId))
   };
 
   useEffect(() => {
-    if (!messageList || messageList.length === 0) {
-      return;
-    }
+    dispatch(onTrackingAddMessageWithThunk(chatId));
+    dispatch(onTrackingRemovedMessageWithThunk(chatId));
 
-    const tail = messageList[messageList.length - 1];
-    if (tail.author === "support") {
-      return;
+    return ()=>{
+      dispatch(offTrackingAddMessageWithThunk(chatId));
+     dispatch(offTrackingRemovedMessageWithThunk(chatId));
     }
-    const answerBot = setInterval(() => {
-      sendMessage('support', "Ваше сообщение не доставлено");
-     }, 2000);
-     return () => {
-     clearInterval(answerBot);
-     };
-}, [messageList]);
+  }, [chatId])
 
 if (!hasChat) {
     return <Redirect to="/chats" />;

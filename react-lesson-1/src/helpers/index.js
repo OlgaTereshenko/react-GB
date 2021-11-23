@@ -1,4 +1,3 @@
-import {nanoid} from "nanoid";
 
 export const compareById = (targetId) =>(item)=> {
     return item.id === targetId;
@@ -6,11 +5,20 @@ export const compareById = (targetId) =>(item)=> {
 
 export const createMessage = (author, text)=>({
     author,
-    text,
-    id: nanoid()
+    text
 });
 
+export const mapMassageSnapsotToMessage=(snapshot)=>({
+    ...snapshot.val(),
+    id: snapshot.key
+})
+
+
 export const createChat = (name)=>({
-    name,
-    id: nanoid()
+    name
+})
+
+export const mapChatSnapshotToChat =(snapshot)=>({
+    ...snapshot.val(),
+    id: snapshot.key
 })
