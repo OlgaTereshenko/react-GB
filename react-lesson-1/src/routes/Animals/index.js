@@ -21,7 +21,7 @@ export const Animals=()=>{
 
     useEffect(()=>{
         dispatch(getRandomAnimals)
-    })
+    }, [])
 
     return (
         <div>

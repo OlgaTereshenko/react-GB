@@ -12,13 +12,15 @@ const useStyles = makeStyles(() => ({
     
   })); 
 
-
+export const HelloChatTextIDs = {
+    title: 'HelloChat_title'
+}
 
 export const HelloChat =()=> {
     const classes = useStyles();
     return (
         <div>
-             <h2 className={classes.contentStyle}>Добро пожаловать в наш чат!</h2>
+             <h2 className={classes.contentStyle} data-testid={HelloChatTextIDs.title}>Добро пожаловать в наш чат!</h2>
         </div>
     )
 }
